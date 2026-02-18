@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClawGate | Intercepted Action</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050505;
+            --accent: #00ff9d;
+            --danger: #ff3e3e;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        header {
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: -1px;
+            color: var(--accent);
+        }
+
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            background: rgba(255, 166, 0, 0.1);
+            color: #ffa600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            border: 1px solid rgba(255, 166, 0, 0.2);
+        }
+
+        main {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .stream-container {
+            background: #000;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        #screencast {
+            max-width: 100%;
+            max-height: 100%;
+            cursor: crosshair;
+        }
+
+        .info-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .card-label {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .command-box {
+            font-family: 'JetBrains Mono', monospace;
+            background: #000;
+            padding: 1rem;
+            border-radius: 8px;
+            color: #ccc;
+            border-left: 3px solid var(--accent);
+            word-break: break-all;
+        }
+
+        .actions {
+            margin-top: auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        button {
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-approve {
+            background: var(--accent);
+            color: #000;
+        }
+
+        .btn-approve:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 255, 157, 0.3);
+        }
+
+        .btn-terminate {
+            background: transparent;
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .btn-terminate:hover {
+            background: var(--danger);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 62, 62, 0.3);
+        }
+
+        .security-indicator {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.7rem;
+            color: var(--accent);
+            pointer-events: none;
+        }
+
+        .pulse {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 255, 157, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 255, 157, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 255, 157, 0); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">CLAWGATE_V1.0</div>
+        <div class="status-badge">EXECUTION_PAUSED</div>
+    </header>
+
+    <main>
+        <div class="stream-container">
+            <div class="security-indicator">
+                <div class="pulse"></div>
+                LIVE_STREAM_ENCRYPTED
+            </div>
+            <img id="screencast" src="" alt="Browser Stream">
+        </div>
+
+        <div class="info-panel">
+            <div class="card">
+                <div class="card-label">Intercepted Command</div>
+                <div class="command-box" id="command-text">bash: rm -rf /etc/config</div>
+            </div>
+
+            <div class="card">
+                <div class="card-label">Reason for Intercept</div>
+                <p id="intercept-reason">System file modification detected via standard tool call.</p>
+            </div>
+
+            <div class="actions">
+                <button class="btn-terminate" onclick="terminate()">Terminate</button>
+                <button class="btn-approve" onclick="approve()">Approve</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const screencast = document.getElementById('screencast');
+        const commandText = document.getElementById('command-text');
+        const interceptReason = document.getElementById('intercept-reason');
+
+        socket.on('init', (data) => {
+            commandText.textContent = data.command || 'N/A';
+            interceptReason.textContent = data.reason || 'Manual pause requested.';
+        });
+
+        socket.on('streamFrame', (frame) => {
+            screencast.src = 'data:image/jpeg;base64,' + frame;
+        });
+
+        function approve() {
+            socket.emit('approve');
+            document.body.style.opacity = '0.5';
+            document.body.style.pointerEvents = 'none';
+        }
+
+        function terminate() {
+            socket.emit('terminate');
+            document.close();
+        }
+
+        // Mouse Event Relay
+        screencast.addEventListener('mousedown', (e) => {
+            const rect = screencast.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width;
+            const y = (e.clientY - rect.top) / rect.height;
+            socket.emit('mouseClick', { x, y });
+        });
+    </script>
+</body>
+</html>
