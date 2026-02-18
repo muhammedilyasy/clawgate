@@ -11,7 +11,7 @@ echo "🛡️  Checking system requirements for clawgate..."
 if [ ! -f "plugin.json" ]; then
     echo "🌐 Remote installation detected. Cloning clawgate repository..."
     if command -v git &> /dev/null; then
-        git clone https://github.com/USER/clawgate.git clawgate-plugin
+        git clone https://github.com/muhammedilyasy/clawgate.git clawgate-plugin
         cd clawgate-plugin
     else
         echo "❌ git is required for remote installation."
