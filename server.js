@@ -3,13 +3,21 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Serve the install script directly at /install.sh
-app.get('/install.sh', (req, res) => {
+// Serve the install script directly at the root for a cleaner command:
+// curl -sSL https://your-url.onrender.com | bash
+app.get('/', (req, res) => {
+    res.setHeader('Content-Type', 'text/plain');
     res.sendFile(path.join(__dirname, 'install.sh'));
 });
 
-// Serve a minimalist landing page at the root
-app.get('/', (req, res) => {
+// Keep /install.sh for compatibility
+app.get('/install.sh', (req, res) => {
+    res.setHeader('Content-Type', 'text/plain');
+    res.sendFile(path.join(__dirname, 'install.sh'));
+});
+
+// Moved landing page to /welcome
+app.get('/welcome', (req, res) => {
     res.send(`
         <!DOCTYPE html>
         <html>
@@ -25,7 +33,7 @@ app.get('/', (req, res) => {
             <div class="box">
                 <h1>🛡️ ClawGate</h1>
                 <p>Run the command below to install the OpenClaw security gate:</p>
-                <code>curl -sSL https://clawgate.onrender.com/install.sh | bash</code>
+                <code>curl -sSL https://clawgate-dist-x17i.onrender.com | bash</code>
             </div>
         </body>
         </html>
