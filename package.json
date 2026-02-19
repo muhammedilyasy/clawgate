@@ -1,18 +1,12 @@
 {
-    "name": "clawgate",
+    "name": "clawgate-dist",
     "version": "1.0.0",
-    "main": "dist/index.js",
+    "description": "Distribution server for ClawGate plugin",
+    "main": "server.js",
     "scripts": {
-        "build": "tsc",
-        "start": "node dist/index.js"
+        "start": "node server.js"
     },
     "dependencies": {
-        "@openclaw/sdk": "^1.0.0",
-        "socket.io": "^4.7.4"
-    },
-    "devDependencies": {
-        "typescript": "^5.3.3",
-        "@types/node": "^20.11.0",
-        "@types/socket.io": "^3.0.2"
+        "express": "^4.18.2"
     }
 }

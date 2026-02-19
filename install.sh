@@ -41,6 +41,7 @@ fi
 
 # Install dependencies
 echo "📦 Installing plugin dependencies..."
+cp plugin-package.json package.json
 npm install
 
 # Build the plugin

@@ -1,5 +1,9 @@
-import { Hook, api, browser, shell } from '@openclaw/sdk';
 import * as http from 'http';
+
+// The following objects are provided by the OpenClaw runtime environment.
+declare const api: any;
+declare const browser: any;
+declare const shell: any;
 import * as fs from 'fs';
 import * as path from 'path';
 import { Server } from 'socket.io';
@@ -8,7 +12,7 @@ import { exec } from 'child_process';
 const DANGEROUS_COMMANDS = [/rm\s/, /sudo\s/, /chmod\s/, /mkfs\s/, /mv\s.*\/dev\/null/];
 const CHALLENGE_KEYWORDS = ['captcha', '2fa', 'verify your identity', 'security check'];
 
-export const before_tool_call: Hook<'before_tool_call'> = async (context) => {
+export const before_tool_call: any = async (context: any) => {
     const { toolName, args } = context;
 
     let shouldPause = false;

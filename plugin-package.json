@@ -1,0 +1,17 @@
+{
+    "name": "clawgate-plugin",
+    "version": "1.0.0",
+    "description": "The actual plugin logic",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "tsc"
+    },
+    "dependencies": {
+        "socket.io": "^4.7.4"
+    },
+    "devDependencies": {
+        "typescript": "^5.3.3",
+        "@types/node": "^20.11.0",
+        "@types/socket.io": "^3.0.2"
+    }
+}
